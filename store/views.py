@@ -1,8 +1,18 @@
 from django.shortcuts import render
+from .models import Book
 
 # Create your views here.
 def index(request):
-    return render(request, 'store/template.html')
+    context = {
+        'page': "Mystery Books",
+    }
+    return render(request, 'store/template.html', context)
 
 def store(request):
-    return render(request, 'store/store.html')
+    books = Book.objects.all()
+    context = {
+        'page': "Welcome to Mystery Books",
+        'book_count': Book.objects.all().count(),
+        'books': books,
+    }
+    return render(request, 'store/store.html', context)
